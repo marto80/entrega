@@ -51,7 +51,7 @@ const BASE = [
 
 ]
 
-const carrito = [];
+const carrito = JSON.parse(localStorage.getItem("cualquiercosa")) || [];
 
 function renderizarCursos(){
     const tienda = document.getElementById('tienda');
@@ -229,6 +229,8 @@ function agregarCursosAlCarrito(id){
        
        carrito.push(curso);
 
+       localStorage.setItem("cualquiercosa", JSON.stringify(carrito))
+
        console.log(carrito)
     }
 
@@ -276,6 +278,7 @@ function renderizarCarrito(){
     curso.querySelector('button').addEventListener('click', ()=>{
 
         eliminarCursoDelCarrito(index);
+        
     })
 
     carritoHTML.appendChild(curso);
@@ -290,7 +293,7 @@ function eliminarCursoDelCarrito(indice){
     carrito[indice].cantidad--;
 
     if(carrito[indice].cantidad === 0){
-        carrito.splice(indice,1); 
+        carrito.splice(indice,1);
     }
 
     renderizarCarrito();
