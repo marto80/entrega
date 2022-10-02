@@ -1,253 +1,317 @@
-const BBDD = [
+const BASE = [
     {
-        "id": 1,
-        "img": "./assets/img/sol.jpg",
-        "tipo": 'Entrenamiento',
-        "dia": 'lunes',
-        "horario": 13,
-        "instructor": 'Sol',
+    "id": 1,
+    "nombre": "Meditación",
+    "texto": "Teórico-práctico. 5 videos. 168 minutos",
+    "img": "img/curso1.jpg",
+    "precio": 2500,
+    "cantidad":1
     },
     {
-        "id": 2,
-        "img": "./assets/img/martin.jpg",
-        "tipo": 'Entrenamiento',
-        "dia": 'lunes',
-        "horario": 18,
-        "instructor": 'Martín',
+    "id": 2,
+    "nombre": "Biohacking",
+    "texto": "Teórico-práctico. 7 videos. 128 minutos",
+    "img": "img/curso2.jpg",
+    "precio": 1500,
+    "cantidad":1
     },
     {
-        "id": 3,
-        "img": "./assets/img/martin.jpg",
-        "tipo": 'Práctica completa',
-        "dia": 'lunes',
-        "horario": 20,
-        "instructor": 'Martín',
+    "id": 3,
+    "nombre": "Detox y energía",
+    "texto": "Teórico-práctico. 7 videos. 192 minutos",
+    "img": "img/curso3.jpg",
+    "precio": 3500,
+    "cantidad":1
     },
     {
-        "id": 4,
-        "img": "./assets/img/martin.jpg",
-        "tipo": 'Entrenamiento',
-        "dia": 'martes',
-        "horario": 8,
-        "instructor": 'Martín',
+    "id": 4,
+    "nombre": "Flexibilidad",
+    "texto": "Teórico-práctico. 3 videos. 118 minutos",
+    "img": "img/curso4.jpg",
+    "precio": 1700,
+    "cantidad":1
     },
     {
-        "id": 5,
-        "img": "./assets/img/sol.jpg",
-        "tipo": 'Entrenamiento',
-        "dia": 'martes',
-        "horario": 17,
-        "instructor": 'Sol',
-    },
-    { 
-        "id": 6,
-        "img": "./assets/img/martin.jpg",
-        "tipo": 'Práctica completa',
-        "dia": 'martes',
-        "horario": 18,
-        "instructor": 'Martín',
+    "id": 5,
+    "nombre": "Mindfulness",
+    "texto": "Teórico-práctico. 8 videos. 208 minutos",
+    "img": "img/curso5.jpg",
+    "precio": 4500,
+    "cantidad":1
     },
     {
-        "id": 7,
-        "img": "./assets/img/sol.jpg",
-        "tipo": 'Práctica completa',
-        "dia": 'martes',
-        "horario": 19,
-        "instructor": 'Sol',
+    "id": 6,
+    "nombre": "Respiración",
+    "texto": "Teórico-práctico. 3 videos. 98 minutos",
+    "img": "img/curso6.jpg",
+    "precio": 1300,
+    "cantidad":1
     },
-    {
-        "id": 8,
-        "img": "./assets/img/martin.jpg",
-        "tipo": 'Entrenamiento',
-        "dia": 'martes',
-        "horario": 20,
-        "instructor": 'Martín',
-      },
+
+
+]
+
+const carrito = [];
+
+function renderizarCursos(){
+    const tienda = document.getElementById('tienda');
+
+
+    const botonesFiltros = [
+        'Mayor Precio',
+        'Menor Precio',
+        'Alfabeticamente'
     ];
 
-
-const reserva = [];
-
-
-function renderizarPracticas(){
-
-    const escuela = document.getElementById('escuela');  
-
-    const btnFiltros = [
-        'Alfabeticamente', 
-        'Por Instructor', 
-        'Por Día'
-        ];
-
-
     const divContainer = document.createElement('div');
-    divContainer.classList.add('container', 'text-center');
+    divContainer.classList.add('container');
 
-    btnFiltros.forEach((btn)=> {
-        
-        const boton = document.createElement('button');
-        boton.textContent = btn;
-        boton.classList.add('btn', 'btn-primary', 'm-2');
+    botonesFiltros.forEach((boton)=>{
+        const btn = document.createElement('button');
+        btn.textContent = boton;
+        btn.classList.add('bot__1')
 
-        escuela.appendChild(boton);
+        tienda.appendChild(btn);
+
     })
 
-    // Creacion
-    const btnAlfabetico = document.querySelector('button:nth-child(1)');
-    btnAlfabetico.addEventListener('click', ()=>{
-        
-        const practice = BBDD.sort((a,b)=> b.horario - a.horario);
 
-        console.log(practice);
+    const btnMayorPrecio = document.querySelector ('button:nth-child(1)');
+    btnMayorPrecio.addEventListener('click', ()=>{
 
-        escuela.innerHTML = '';
+        const course = BASE.sort((a,b)=>b.precio - a.precio);
 
-        practice.forEach((e)=>{
-            
-            console.log(e);
+        tienda.innerHTML = '';
+
+        course.forEach((e)=>{
+
             const div = document.createElement('div');
 
-            div.classList.add('col-12');
-            div.classList.add('col-md-4');
-            div.classList.add('mb-5');
-            div.classList.add('d-flex');
-            div.classList.add('justify-content-center');
+
+            div.classList.add('card');
+            div.classList.add('col-sm-12');
+            div.classList.add('col-md-6');
+            div.classList.add('col-xl-4');
+            div.classList.add('cards__estilos');
+            div.classList.add('card-img-top');
+            div.classList.add('card-img-top');
+            div.classList.add('w-100');
+            div.classList.add('card-body');
+            div.classList.add('cards__fondo');
+            div.classList.add('card-title');
+            div.classList.add('card-text');
 
             div.innerHTML = `
-            <div class="card text-dark" style="width: 18rem;">
-            <img class="card-img-top" src="${e.img}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">${e.tipo}</h5>
-                <p>${p.dia} ${p.horario} hs.</p>
-                <button class="btn btn-primary" id="${e.id}">Añadir reserva</button>
-            </div>
-            </div>
-        `
-            div.querySelector('button').addEventListener('click', ()=>{
-                agregarPracticasAlreserva(e.id);
-            
-            })
+    <div class="card col-sm-12 cards__estilos">
+    <img src="${e.img}" class="card-img-top w-100">
+    <div class="card-body cards__fondo">
+      <h5 class="card-title">${e.nombre}</h5>
+      <p class="card-text">${e.texto}</p>
+      <p class="card-text">$ ${e.precio} </p>
+      <button class="bot__3" id="${e.id}">Agregar</button>
+    </div>
+    </div>
+    `
 
-            escuela.appendChild(div);
+    div.querySelector('button').addEventListener('click',()=>{
+        agregarCursosAlCarrito(e.id)
+
+    })
+
+tienda.appendChild(div);
+
+        })
+
+    })
+
+    const btnMenorPrecio = document.querySelector ('button:nth-child(2)');
+    btnMenorPrecio.addEventListener('click', ()=>{
+
+        const course = BASE.sort((a,b)=>b.precio - -a.precio);
+
+        tienda.innerHTML = '';
+
+        course.forEach((m)=>{
+
+            const dividi = document.createElement('div');
+
+
+            dividi.classList.add('card');
+            dividi.classList.add('col-sm-12');
+            dividi.classList.add('col-md-6');
+            dividi.classList.add('col-xl-4');
+            dividi.classList.add('cards__estilos');
+            dividi.classList.add('card-img-top');
+            dividi.classList.add('card-img-top');
+            dividi.classList.add('w-100');
+            dividi.classList.add('card-body');
+            dividi.classList.add('cards__fondo');
+            dividi.classList.add('card-title');
+            dividi.classList.add('card-text');
+
+            dividi.innerHTML = `
+    <div class="card col-sm-12 col-md-6 col-xl-4 cards__estilos">
+    <img src="${m.img}" class="card-img-top w-100">
+    <div class="card-body cards__fondo">
+      <h5 class="card-title">${m.nombre}</h5>
+      <p class="card-text">${m.texto}</p>
+      <p class="card-text">$ ${m.precio} </p>
+      <button class="bot__3" id="${m.id}">Agregar</button>
+    </div>
+    </div>
+    `
+
+    dividi.querySelector('button').addEventListener('click',()=>{
+        agregarCursosAlCarrito(m.id)
+
+    })
+
+tienda.appendChild(dividi);
+
         })
 
     })
 
 
 
-    BBDD.forEach((p)=> {
+    BASE.forEach((p)=>{
         
-        let practica = document.createElement('div');
-        practica.classList.add('col-12');
-        practica.classList.add('col-md-4');
-        practica.classList.add('mb-5');
-        practica.classList.add('d-flex');
-        practica.classList.add('justify-content-center');
+    let curso = document.createElement('div');
+    curso.classList.add('card');
+    curso.classList.add('col-sm-12');
+    curso.classList.add('col-md-6');
+    curso.classList.add('col-xl-4');
+    curso.classList.add('cards__estilos');
+    curso.classList.add('card-img-top');
+    curso.classList.add('card-img-top');
+    curso.classList.add('w-100');
+    curso.classList.add('card-body');
+    curso.classList.add('cards__fondo');
+    curso.classList.add('card-title');
+    curso.classList.add('card-text');
 
-        practica.innerHTML = `
-        <div class="card text-dark" style="width: 18rem;">
-            <img class="card-img-top" src="${p.img}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">${p.tipo}</h5>
-                <p>${p.dia} ${p.horario} hs.</p>
-                <h6 class="card-title"> con ${p.instructor}</h6>
-                <button class="btn btn-primary" id="${p.id}">Añadir reserva</button>
-            </div>
-        </div>
-        `
+    curso.innerHTML = `
+    <div class="card col-sm-12 cards__estilos">
+    <img src="${p.img}" class="card-img-top w-100">
+    <div class="card-body cards__fondo">
+      <h5 class="card-title">${p.nombre}</h5>
+      <p class="card-text">${p.texto}</p>
+      <p class="card-text">$ ${p.precio} </p>
+      <button class="bot__3" id="${p.id}">Agregar</button>
+    </div>
+    </div>
+    `
+tienda.appendChild(curso);
 
-        escuela.appendChild(practica);
+curso.querySelector('button').addEventListener('click',()=>{
+    agregarCursosAlCarrito(p.id);
 
-        practica.querySelector('button').addEventListener('click', ()=>{
-            
-            agregarPracticasAlReserva(p.id);
-            
-        })
-
+})
     })
-
 }
 
-renderizarPracticas();
+renderizarCursos();
 
-function agregarPracticasAlReserva(id){
+
+
+function agregarCursosAlCarrito(id){
     
-    let practica = BBDD.find(practica => practica.id === id);
+    let curso = BASE.find(curso => curso.id===id);
 
-    let practicaEnReserva = reserva.find(practica => practica.id === id);
+    let cursoEnCarrito = carrito.find(curso => curso.id === id);
 
-    if(practicaEnReserva){
-        
-        practicaEnReserva.cantidad++;
+    if(cursoEnCarrito){
+        cursoEnCarrito.cantidad++;
+        console.log(carrito);
+    } else{
 
-        console.log(reserva);
+       curso.cantidad = 1;
+       
+       carrito.push(curso);
 
-        alert(`La cantidad del practica ${practica.nombre} fue modificada`);
-
-    }else {
-        
-        practica.cantidad = 1;
-
-        reserva.push(practica);
-
-        console.log(reserva);
-
-        alert('Clase reservada')
+       console.log(carrito)
     }
 
-    renderizarReserva();
+    renderizarCarrito();
     calcularTotal();
+
 }
 
 
-function renderizarReserva(){
-
+function renderizarCarrito(){
     const d = document;
-    let reservaHTML = d.querySelector('#reserva');
+    let carritoHTML = d.querySelector('#carrito');
 
-    reservaHTML.innerHTML = '';
+    carritoHTML.innerHTML = '';
 
-    reserva.forEach((p, index)=> {
-    
-        let practica = document.createElement('div');
-        practica.classList.add('col-12');
-        practica.classList.add('col-md-4');
-        practica.classList.add('mb-5');
-        practica.classList.add('d-flex');
-        practica.classList.add('justify-content-center');
+    carrito.forEach((p, index)=>{
 
-        practica.innerHTML = `
-        
-        <div class="card text-dark" style="width: 18rem;">
-            <img class="card-img-top" src="${p.img}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">${p.nombre}</h5>
-                <p>${p.precio}€</p>
-                <p>Cantidad: ${p.cantidad}</p>
-                <button class="btn btn-danger">Eliminar</button>
-            </div>
-        </div>
-        `
+    let curso = document.createElement('div');
+    curso.classList.add('card');
+    curso.classList.add('col-sm-12');
+    curso.classList.add('col-md-6');
+    curso.classList.add('col-xl-4');
+    curso.classList.add('cards__estilos');
+    curso.classList.add('card-img-top');
+    curso.classList.add('card-img-top');
+    curso.classList.add('w-100');
+    curso.classList.add('card-body');
+    curso.classList.add('cards__fondo');
+    curso.classList.add('card-title');
+    curso.classList.add('card-text');
 
-        practica.querySelector('button').addEventListener('click', ()=>{
-        
-            eliminarPracticaDelReserva(index)
-        })
+    curso.innerHTML = `
+    <div class="card col-sm-12 cards__estilos">
+    <img src="${p.img}" class="card-img-top w-100">
+    <div class="card-body cards__fondo">
+      <h5 class="card-title">${p.nombre}</h5>
+      <p class="card-text">${p.texto}</p>
+      <p class="card-text">$ ${p.precio} </p>
+      <p class="card-text">Cantidad ${p.cantidad} </p>
+      <button class="bot__3">Eliminar</button>
+    </div>
+    </div>
+    `
 
-        reservaHTML.appendChild(practica);
+    curso.querySelector('button').addEventListener('click', ()=>{
+
+        eliminarCursoDelCarrito(index);
     })
+
+    carritoHTML.appendChild(curso);
+
+    })
+
 }
 
-function eliminarPracticaDelReserva(indice){
 
-    reserva[indice].cantidad--;
-    alert(`La cantidad de practicas ${reserva[indice].nombre} disminuyo`);
+function eliminarCursoDelCarrito(indice){
 
-    if(reserva[indice].cantidad === 0){
+    carrito[indice].cantidad--;
 
-        reserva.splice(indice,1);
-        alert('La practica fue eliminada de la reserva');
+    if(carrito[indice].cantidad === 0){
+        carrito.splice(indice,1); 
     }
 
-    renderizarReserva();
+    renderizarCarrito();
+    calcularTotal();
+
+}
+
+
+function calcularTotal(){
+
+let total = 0;
+
+carrito.forEach((p)=>{
+
+    total += p.precio * p.cantidad
+
+})
+
+console.log(total);
+
+const t =  document.getElementById('total');
+
+t.innerHTML = `<h5> Total: $ ${total}</h5>`
 }
