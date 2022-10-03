@@ -211,6 +211,7 @@ curso.querySelector('button').addEventListener('click',()=>{
 }
 
 renderizarCursos();
+renderizarCarrito();
 
 
 
