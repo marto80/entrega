@@ -59,8 +59,7 @@ function renderizarCursos(){
 
     const botonesFiltros = [
         'Mayor Precio',
-        'Menor Precio',
-        'Alfabeticamente'
+        'Menor Precio'
     ];
 
     const divContainer = document.createElement('div');
@@ -94,7 +93,6 @@ function renderizarCursos(){
             div.classList.add('col-xl-4');
             div.classList.add('cards__estilos');
             div.classList.add('card-img-top');
-            div.classList.add('card-img-top');
             div.classList.add('w-100');
             div.classList.add('card-body');
             div.classList.add('cards__fondo');
@@ -119,54 +117,6 @@ function renderizarCursos(){
     })
 
 tienda.appendChild(div);
-
-        })
-
-    })
-
-    const btnMenorPrecio = document.querySelector ('button:nth-child(2)');
-    btnMenorPrecio.addEventListener('click', ()=>{
-
-        const course = BASE.sort((a,b)=>b.precio - -a.precio);
-
-        tienda.innerHTML = '';
-
-        course.forEach((m)=>{
-
-            const dividi = document.createElement('div');
-
-
-            dividi.classList.add('card');
-            dividi.classList.add('col-sm-12');
-            dividi.classList.add('col-md-6');
-            dividi.classList.add('col-xl-4');
-            dividi.classList.add('cards__estilos');
-            dividi.classList.add('card-img-top');
-            dividi.classList.add('card-img-top');
-            dividi.classList.add('w-100');
-            dividi.classList.add('card-body');
-            dividi.classList.add('cards__fondo');
-            dividi.classList.add('card-title');
-            dividi.classList.add('card-text');
-
-            dividi.innerHTML = `
-    <div class="card col-sm-12 col-md-6 col-xl-4 cards__estilos">
-    <img src="${m.img}" class="card-img-top w-100">
-    <div class="card-body cards__fondo">
-      <h5 class="card-title">${m.nombre}</h5>
-      <p class="card-text">${m.texto}</p>
-      <p class="card-text">$ ${m.precio} </p>
-      <button class="bot__3" id="${m.id}">Agregar</button>
-    </div>
-    </div>
-    `
-
-    dividi.querySelector('button').addEventListener('click',()=>{
-        agregarCursosAlCarrito(m.id)
-
-    })
-
-tienda.appendChild(dividi);
 
         })
 
