@@ -3,7 +3,7 @@ const BASE = [
     "id": 1,
     "nombre": "Meditación",
     "texto": "Teórico-práctico. 5 videos. 168 minutos",
-    "img": "img/curso1.jpg",
+    "img": "./public/img/curso1.jpg",
     "precio": 2500,
     "cantidad":1
     },
@@ -11,7 +11,7 @@ const BASE = [
     "id": 2,
     "nombre": "Biohacking",
     "texto": "Teórico-práctico. 7 videos. 128 minutos",
-    "img": "img/curso2.jpg",
+    "img": "./public/img/curso2.jpg",
     "precio": 1500,
     "cantidad":1
     },
@@ -19,7 +19,7 @@ const BASE = [
     "id": 3,
     "nombre": "Detox y energía",
     "texto": "Teórico-práctico. 7 videos. 192 minutos",
-    "img": "img/curso3.jpg",
+    "img": "./public/img/curso3.jpg",
     "precio": 3500,
     "cantidad":1
     },
@@ -27,7 +27,7 @@ const BASE = [
     "id": 4,
     "nombre": "Flexibilidad",
     "texto": "Teórico-práctico. 3 videos. 118 minutos",
-    "img": "img/curso4.jpg",
+    "img": "./public/img/curso4.jpg",
     "precio": 1700,
     "cantidad":1
     },
@@ -35,7 +35,7 @@ const BASE = [
     "id": 5,
     "nombre": "Mindfulness",
     "texto": "Teórico-práctico. 8 videos. 208 minutos",
-    "img": "img/curso5.jpg",
+    "img": "./public/img/curso5.jpg",
     "precio": 4500,
     "cantidad":1
     },
@@ -43,7 +43,7 @@ const BASE = [
     "id": 6,
     "nombre": "Respiración",
     "texto": "Teórico-práctico. 3 videos. 98 minutos",
-    "img": "img/curso6.jpg",
+    "img": "./public/img/curso6.jpg",
     "precio": 1300,
     "cantidad":1
     },
@@ -100,13 +100,15 @@ function renderizarCursos(){
             div.classList.add('card-text');
 
             div.innerHTML = `
-    <div class="card col-sm-12 cards__estilos">
+    <div class="card col-sm-12 col-md-6 col-xl-4 cards__estilos">
+    <div class= "row">
     <img src="${e.img}" class="card-img-top w-100">
     <div class="card-body cards__fondo">
       <h5 class="card-title">${e.nombre}</h5>
       <p class="card-text">${e.texto}</p>
       <p class="card-text">$ ${e.precio} </p>
       <button class="bot__3" id="${e.id}">Agregar</button>
+    </div>
     </div>
     </div>
     `
@@ -141,13 +143,15 @@ tienda.appendChild(div);
     curso.classList.add('card-text');
 
     curso.innerHTML = `
-    <div class="card col-sm-12 cards__estilos">
+    <div class="card col-sm-12 col-md-6 col-xl-4 cards__estilos">
+    <div class= "row">
     <img src="${p.img}" class="card-img-top w-100">
     <div class="card-body cards__fondo">
       <h5 class="card-title">${p.nombre}</h5>
       <p class="card-text">${p.texto}</p>
       <p class="card-text">$ ${p.precio} </p>
       <button class="bot__3" id="${p.id}">Agregar</button>
+    </div>
     </div>
     </div>
     `
@@ -171,18 +175,28 @@ function agregarCursosAlCarrito(id){
 
     let cursoEnCarrito = carrito.find(curso => curso.id === id);
 
+
     if(cursoEnCarrito){
         cursoEnCarrito.cantidad++;
-        console.log(carrito);
+        Swal.fire (`Agregaste otra vez el curso de ${curso.nombre}`)
+
     } else{
 
        curso.cantidad = 1;
        
        carrito.push(curso);
+       let timerInterval
+
+       Swal.fire({
+        // position: 'top-end',
+        icon: 'success',
+        title: `${curso.nombre} agregado al carrito`,
+        showConfirmButton: false,
+        timer: 1500
+      })
 
        localStorage.setItem("cualquiercosa", JSON.stringify(carrito))
 
-       console.log(carrito)
     }
 
     renderizarCarrito();
@@ -214,7 +228,8 @@ function renderizarCarrito(){
     curso.classList.add('card-text');
 
     curso.innerHTML = `
-    <div class="card col-sm-12 cards__estilos">
+    <div class="card col-sm-12 col-md-6 col-xl-4 cards__estilos">
+    <div class= "row">
     <img src="${p.img}" class="card-img-top w-100">
     <div class="card-body cards__fondo">
       <h5 class="card-title">${p.nombre}</h5>
@@ -224,24 +239,35 @@ function renderizarCarrito(){
       <button class="bot__3">Eliminar</button>
     </div>
     </div>
+    </div>
     `
 
     curso.querySelector('button').addEventListener('click', ()=>{
+        
 
         eliminarCursoDelCarrito(index);
+        Swal.fire (`Eliminaste una unidad`)
+       
+
+       
         
     })
 
     carritoHTML.appendChild(curso);
+    
 
     })
 
 }
 
 
+
+
 function eliminarCursoDelCarrito(indice){
 
+
     carrito[indice].cantidad--;
+    
 
     if(carrito[indice].cantidad === 0){
         carrito.splice(indice,1);
